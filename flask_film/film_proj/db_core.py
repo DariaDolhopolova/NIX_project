@@ -42,14 +42,21 @@ def get_user_full_name(user_id: int):
     return f'{user_name.first_name} {user_name.last_name}'
 
 
-def get_user_auth(user_id: int):
+def get_user_auth(username: str, password:str):
     """Returns authorization parameters for flask-login"""
-    if not isinstance(user_id, int):
-        raise TypeError('User id type should be int.')
+    if not isinstance(username, str):
+        raise TypeError('Username type should be str.')
+    if not isinstance(password, str):
+        raise TypeError('Password type should be str.')
 
-    user = Users.query.get(user_id)
+    user = Users.query.filter_by(user_group_id=2).first()
+    if user is not None:
+        if password == user.password:
+            status = True
+    else:
+        error = 'Login error: User not found. Register at: /registration'
 
-    return user.username, user.password
+    return {'user': user, 'message': {'error': error, 'status': status}}
 
 
 def get_user_password(user_id:int):
