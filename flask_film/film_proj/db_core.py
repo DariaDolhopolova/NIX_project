@@ -363,7 +363,7 @@ def get_full_film_info(film_name: str = '', page: int = 1, genre_list: list = No
 
 
 def add_new_film(film_name: str, poster: str, release_date: int, rating: float,
-                 added_user_id: int, genre: list[str], director: list[str], description: str = None):
+                 added_user_id: int, genre: list, director: list, description=None):
     """input all of the parameters (description - optional) for the film, but film id
     output: film id"""
     if not isinstance(film_name, str):
@@ -414,15 +414,15 @@ def add_new_film(film_name: str, poster: str, release_date: int, rating: float,
 
 def update_film(film_id: int = None, film_name: str = None,
                 poster: str = None, release_date: str = None,
-                rating: float = None, added_user_id: str = None,
-                genre: list[str] = None, director: list[str] = None,
+                rating: float = None, user_id: str = None,
+                genre: list = None, director: list = None,
                 description: str = 'None'):
     """Update film info"""
     status = False
 
     film = Films.query.get(film_id)
 
-    if film.added_user_id in (1, added_user_id):
+    if film.added_user_id in (1, user_id):
         if film_name:
             film.film_name = film_name
         if poster:
