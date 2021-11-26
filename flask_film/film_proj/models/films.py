@@ -13,7 +13,7 @@ class Films(db.Model):
     poster = db.Column(db.Text, nullable=False)
     release_date = db.Column(db.Integer, unique=False, nullable=False, index=True)
     rating = db.Column(db.Float, unique=False, nullable=False, index=True)
-    added_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    added_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     description = db.Column(db.Text, nullable=True, index=True)
 
     film_genre = db.relationship(
